@@ -8,6 +8,9 @@ var TEXT_WIDTH = 20;
 var BAR_HIGHT = 150;
 var BAR_WIDTH = 40;
 var GAP_BETWEEN_BAR = 50;
+var CLOUD_SHADOW_X = 110;
+var CLOUD_SHADOW_Y = 20;
+var ACTIVE_PLAYER = "Вы";
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -26,8 +29,20 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
+var drawName = function (ctx, players, x, y) {
+  ctx.fillText(players, x, y);
+};
+
+var drawBar = function (ctx, x, y, width, height) {
+  ctx.fillRect(x, y, width, height);
+};
+
+var drawPoints = function (ctx, points, x, y) {
+  ctx.fillText(points, x, y);
+};
+
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, "rgba(0, 0, 0, 0.7");
+  renderCloud(ctx, CLOUD_SHADOW_X, CLOUD_SHADOW_Y, "rgba(0, 0, 0, 0.7");
   renderCloud(ctx, CLOUD_X, CLOUD_Y, "#fff");
 
   ctx.fillStyle = "#000";
@@ -39,26 +54,29 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText("Список результатов: ", CLOUD_X + GAP, CLOUD_Y + GAP * 5);
 
   for (var i = 0; i < players.length; i++) {
-    ctx.fillText(
+    drawName(
+      ctx,
       players[i],
-      CLOUD_X + GAP * 3 + (GAP_BETWEEN_BAR + BAR_WIDTH) * i, //но лучше выглядит - (CLOUD_WIDTH / players.length), равномернее
+      CLOUD_X + GAP * 3 + (GAP_BETWEEN_BAR + BAR_WIDTH) * i,
       CLOUD_HEIGHT - GAP
     );
-    var randomTransparency = Math.floor(Math.random() * 10) / 10;
-    if (players[i] == "Вы") {
+
+    if (players[i] == ACTIVE_PLAYER) {
       ctx.fillStyle = "rgba(255, 0, 0, 1)";
-    } else {
-      ctx.fillStyle = `rgba(0, 0, 255, ${Math.random()})`;
+      } else {
+      ctx.fillStyle = `rgba(0, 0, 255, ${Math.ceil(Math.random() * 10) / 10})`;
     }
-    ctx.fillRect(
+    drawBar(
+      ctx,
       CLOUD_X + GAP * 3 + (GAP_BETWEEN_BAR + BAR_WIDTH) * i,
       CLOUD_HEIGHT - GAP * 3,
       BAR_WIDTH,
       -(BAR_HIGHT * times[i]) / maxTime
     );
     ctx.fillStyle = "#000";
-    ctx.fillText(
-      Math.floor(times[i]),
+    drawPoints(
+      ctx,
+      Math.round(times[i]),
       CLOUD_X + GAP * 3 + (GAP_BETWEEN_BAR + BAR_WIDTH) * i,
       -((BAR_HIGHT * times[i]) / maxTime) + CLOUD_HEIGHT - GAP * 4
     );
