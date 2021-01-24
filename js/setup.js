@@ -73,17 +73,17 @@
   function createRandomWizard() {
     var wizard = {
       name: `${
-        names[window.mathRandomUtils.getRandomNumber(names.length - 1)]
+        names[window.mathUtils.getRandomNumber(names.length - 1)]
       } ${
-        lastNames[window.mathRandomUtils.getRandomNumber(lastNames.length - 1)]
+        lastNames[window.mathUtils.getRandomNumber(lastNames.length - 1)]
       }`,
       coatColor:
         coatColors[
-          window.mathRandomUtils.getRandomNumber(coatColors.length - 1)
+          window.mathUtils.getRandomNumber(coatColors.length - 1)
         ],
       eyesColor:
         eyesColors[
-          window.mathRandomUtils.getRandomNumber(eyesColors.length - 1)
+          window.mathUtils.getRandomNumber(eyesColors.length - 1)
         ],
     };
     return wizard;
@@ -105,18 +105,18 @@
 
   function changeCoatColor() {
     setupCoatWizard.style.fill =
-      coatColors[window.mathRandomUtils.getRandomNumber(coatColors.length - 1)];
+      coatColors[window.mathUtils.getRandomNumber(coatColors.length - 1)];
   }
 
   function changeEyeColor() {
     setupEyeWizard.style.fill =
-      eyesColors[window.mathRandomUtils.getRandomNumber(eyesColors.length - 1)];
+      eyesColors[window.mathUtils.getRandomNumber(eyesColors.length - 1)];
   }
 
   function changeFireBallColor() {
     setupFireballWizard.style.background =
       fireballColors[
-        window.mathRandomUtils.getRandomNumber(fireballColors.length - 1)
+        window.mathUtils.getRandomNumber(fireballColors.length - 1)
       ];
   }
 })();
